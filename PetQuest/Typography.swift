@@ -2,14 +2,29 @@ import SwiftUI
 
 // MARK: - Custom Fonts
 extension Font {
+    // MARK: Fredoka Bold (Headings)
+    static func fredokaBold(size: CGFloat) -> Font {
+        return .custom("Fredoka-Bold", size: size)
+    }
+    
+    // MARK: Fredoka SemiBold (Headings)
+    static func fredokaSemibold(size: CGFloat) -> Font {
+        return .custom("Fredoka-SemiBold", size: size)
+    }
+    
     // MARK: Fredoka Medium (Headings)
     static func fredokaMedium(size: CGFloat) -> Font {
         return .custom("Fredoka-Medium", size: size)
     }
     
-    // MARK: Quicksand Regular (Body & Caption)
+    // MARK: Quicksand Regular (Body)
     static func quicksandRegular(size: CGFloat) -> Font {
         return .custom("Quicksand-Regular", size: size)
+    }
+    
+    // MARK: Quicksand Medium (Caption)
+    static func quicksandMedium(size: CGFloat) -> Font {
+        return .custom("Quicksand-Medium", size: size)
     }
 }
 

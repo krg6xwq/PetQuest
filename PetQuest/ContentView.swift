@@ -12,31 +12,45 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 20) {
                 Text("🐾 PetQuest")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .textStyle(TextStyles.H1())
+                    .foregroundColor(.brandPrimary)
                     .padding(.top)
                 
+                Text("Discover your perfect companion")
+                    .textStyle(TextStyles.Body1())
+                    .foregroundColor(.text2)
+                
                 if petViewModel.availablePets.isEmpty {
-                    VStack {
+                    VStack(spacing: 16) {
                         Image(systemName: "pawprint.circle")
                             .font(.system(size: 60))
-                            .foregroundColor(.gray)
-                        Text("No pets available for adoption")
-                            .font(.title2)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.textInactive)
+                        Text("No pets yet!")
+                            .textStyle(TextStyles.H3())
+                            .foregroundColor(.text1)
+                        Text("Add your first pet to get started")
+                            .textStyle(TextStyles.Body2())
+                            .foregroundColor(.text2)
                     }
                     .padding()
+                    .background(Color.bgTertiary)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
                 } else {
                     List(petViewModel.availablePets) { pet in
                         PetRowView(pet: pet, viewModel: petViewModel)
+                            .listRowBackground(Color.bgSecondary)
                     }
+                    .background(Color.bgTertiary)
+                    .scrollContentBackground(.hidden)
                 }
                 
                 Spacer()
             }
-            .navigationTitle("Available Pets")
+            .background(Color.bgSecondary)
+            .navigationTitle("My Pets")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
