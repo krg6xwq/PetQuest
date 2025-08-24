@@ -8,14 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var petViewModel = PetViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                Text("🐾 PetQuest")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
+                
+                if petViewModel.availablePets.isEmpty {
+                    VStack {
+                        Image(systemName: "pawprint.circle")
+                            .font(.system(size: 60))
+                            .foregroundColor(.gray)
+                        Text("No pets available for adoption")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                    }
+                    .padding()
+                } else {
+                    List(petViewModel.availablePets) { pet in
+                        PetRowView(pet: pet, viewModel: petViewModel)
+                    }
+                }
+                
+                Spacer()
+            }
+            .navigationTitle("Available Pets")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .padding()
     }
 }
 
