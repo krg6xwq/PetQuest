@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		457E4FEA2E5B27E400EF54B7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 457E4FE92E5B27E400EF54B7 /* README.md */; };
+		457E50332E5B4A3F00EF54B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 457E50322E5B4A3F00EF54B7 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		457E4FC12E5B139500EF54B7 /* PetQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E4FCB2E5B139500EF54B7 /* PetQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		457E4FE92E5B27E400EF54B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		457E50322E5B4A3F00EF54B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,6 +82,7 @@
 		457E4FAB2E5B139200EF54B7 = {
 			isa = PBXGroup;
 			children = (
+				457E50322E5B4A3F00EF54B7 /* Info.plist */,
 				457E4FE92E5B27E400EF54B7 /* README.md */,
 				457E4FB62E5B139200EF54B7 /* PetQuest */,
 				457E4FC42E5B139500EF54B7 /* PetQuestTests */,
@@ -219,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				457E4FEA2E5B27E400EF54B7 /* README.md in Resources */,
+				457E50332E5B4A3F00EF54B7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +408,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetQuest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -414,6 +419,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = krg6xwq.PetQuest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -431,6 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PetQuest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -441,6 +448,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = krg6xwq.PetQuest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
