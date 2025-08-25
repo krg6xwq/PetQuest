@@ -21,20 +21,17 @@ struct AnimalPreviewCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text(pet.name)
-                            .font(.custom("Fredoka-Medium", size: 18))
-                            .foregroundColor(Color.text1)
+                            .textStyle(TextStyles.H4())
                         
                         Spacer()
                         
                         Text("Lvl \(pet.level)")
-                            .font(.custom("Quicksand-Regular", size: 16))
-                            .foregroundColor(Color.text1)
+                            .textStyle(TextStyles.Body1())
                     }
                     
                     HStack {
                         Text(pet.breed)
-                            .font(.custom("Quicksand-Regular", size: 14))
-                            .foregroundColor(Color.text2)
+                            .textStyle(TextStyles.Body2())
                         
                         Spacer()
                         
@@ -45,7 +42,7 @@ struct AnimalPreviewCard: View {
                                 .foregroundColor(Color.petType(pet.type.rawValue))
                             
                             Text(pet.type.rawValue.capitalized)
-                                .font(.custom("Fredoka-Medium", size: 14))
+                                .font(.h6)
                                 .foregroundColor(Color.petType(pet.type.rawValue))
                         }
                         .padding(.horizontal, 6)
@@ -64,25 +61,23 @@ struct AnimalPreviewCard: View {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("HP")
-                                .font(.custom("Quicksand-Regular", size: 14))
-                                .foregroundColor(Color.text2)
+                                .textStyle(TextStyles.Body2())
                             
                             Spacer()
                             
                             Text("\(pet.hp)")
-                                .font(.custom("Quicksand-Regular", size: 14))
+                                .font(.body2)
                                 .foregroundColor(Color.text1)
                         }
                         
                         HStack {
                             Text("Attack")
-                                .font(.custom("Quicksand-Regular", size: 14))
-                                .foregroundColor(Color.text2)
+                                .textStyle(TextStyles.Body2())
                             
                             Spacer()
                             
                             Text("\(pet.attack)")
-                                .font(.custom("Quicksand-Regular", size: 14))
+                                .font(.body2)
                                 .foregroundColor(Color.text1)
                         }
                     }
@@ -91,25 +86,23 @@ struct AnimalPreviewCard: View {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("Defense")
-                                .font(.custom("Quicksand-Regular", size: 14))
-                                .foregroundColor(Color.text2)
+                                .textStyle(TextStyles.Body2())
                             
                             Spacer()
                             
                             Text("\(pet.defense)")
-                                .font(.custom("Quicksand-Regular", size: 14))
+                                .font(.body2)
                                 .foregroundColor(Color.text1)
                         }
                         
                         HStack {
                             Text("Speed")
-                                .font(.custom("Quicksand-Regular", size: 14))
-                                .foregroundColor(Color.text2)
+                                .textStyle(TextStyles.Body2())
                             
                             Spacer()
                             
                             Text("\(pet.speed)")
-                                .font(.custom("Quicksand-Regular", size: 14))
+                                .font(.body2)
                                 .foregroundColor(Color.text1)
                         }
                     }

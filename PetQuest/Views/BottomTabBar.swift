@@ -47,8 +47,7 @@ struct TabBarItemView: View {
                     .foregroundColor(selectedTab == tab ? Color.brandPrimary : Color.borderPrimary)
                 
                 Text(tab.label)
-                    .font(.custom("Quicksand-Medium", size: 12))
-                    .foregroundColor(Color.text2)
+                    .textStyle(TextStyles.Caption())
             }
             .frame(maxWidth: .infinity)
         }

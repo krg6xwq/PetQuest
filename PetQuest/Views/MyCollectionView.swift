@@ -21,8 +21,7 @@ struct MyCollectionView: View {
                 // Header
                 HStack {
                     Text("My Collection")
-                        .font(.custom("Fredoka-Bold", size: 32))
-                        .foregroundColor(Color.text1)
+                        .textStyle(TextStyles.H1())
                     
                     Spacer()
                     
@@ -42,7 +41,7 @@ struct MyCollectionView: View {
                             .foregroundColor(Color.text2)
                         
                         TextField("Search", text: $searchText)
-                            .font(.custom("Fredoka-Medium", size: 16))
+                            .font(.h5)
                             .foregroundColor(Color.text1)
                     }
                     .padding(.horizontal, 20)
@@ -74,7 +73,7 @@ struct MyCollectionView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("All pets (\(samplePets.count))")
-                            .font(.custom("Fredoka-Medium", size: 16))
+                            .font(.h5)
                             .foregroundColor(Color.text2)
                         
                         Rectangle()

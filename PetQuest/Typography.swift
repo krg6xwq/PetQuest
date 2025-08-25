@@ -1,116 +1,23 @@
 import SwiftUI
 
-// MARK: - Custom Fonts
+// MARK: - Typography System
 extension Font {
-    // MARK: Fredoka Bold (Headings)
-    static func fredokaBold(size: CGFloat) -> Font {
-        return .custom("Fredoka-Bold", size: size)
-    }
-    
-    // MARK: Fredoka SemiBold (Headings)
-    static func fredokaSemibold(size: CGFloat) -> Font {
-        return .custom("Fredoka-SemiBold", size: size)
-    }
-    
-    // MARK: Fredoka Medium (Headings)
-    static func fredokaMedium(size: CGFloat) -> Font {
-        return .custom("Fredoka-Medium", size: size)
-    }
-    
-    // MARK: Quicksand Regular (Body)
-    static func quicksandRegular(size: CGFloat) -> Font {
-        return .custom("Quicksand-Regular", size: size)
-    }
-    
-    // MARK: Quicksand Medium (Caption)
-    static func quicksandMedium(size: CGFloat) -> Font {
-        return .custom("Quicksand-Medium", size: size)
-    }
+    // MARK: Font Definitions
+    static let h1 = Font.custom("Fredoka-Bold", size: 32)
+    static let h4 = Font.custom("Fredoka-Medium", size: 18)
+    static let h5 = Font.custom("Fredoka-Medium", size: 16)
+    static let h6 = Font.custom("Fredoka-Medium", size: 14)
+    static let body1 = Font.custom("Quicksand-Regular", size: 16)
+    static let body2 = Font.custom("Quicksand-Regular", size: 14)
+    static let caption = Font.custom("Quicksand-Medium", size: 12)
 }
 
-// MARK: - Text Styles
-extension Font {
-    // MARK: Heading Styles (Fredoka Medium)
-    static let h1 = Font.fredokaBold(size: 32)
-    static let h2 = Font.fredokaSemibold(size: 24)
-    static let h3 = Font.fredokaSemibold(size: 20)
-    static let h4 = Font.fredokaMedium(size: 18)
-    static let h5 = Font.fredokaMedium(size: 16)
-    static let h6 = Font.fredokaMedium(size: 14)
-    
-    // MARK: Body Styles (Quicksand Regular)
-    static let body1 = Font.quicksandRegular(size: 16)
-    static let body2 = Font.quicksandRegular(size: 14)
-    
-    // MARK: Caption Style (Quicksand Regular)
-    static let caption = Font.quicksandMedium(size: 12)
-}
-
-// MARK: - Typography View Extensions
-extension View {
-    // MARK: Heading Modifiers
-    func h1Style() -> some View {
-        self.font(.h1)
-    }
-    
-    func h2Style() -> some View {
-        self.font(.h2)
-    }
-    
-    func h3Style() -> some View {
-        self.font(.h3)
-    }
-    
-    func h4Style() -> some View {
-        self.font(.h4)
-    }
-    
-    func h5Style() -> some View {
-        self.font(.h5)
-    }
-    
-    func h6Style() -> some View {
-        self.font(.h6)
-    }
-    
-    // MARK: Body Modifiers
-    func body1Style() -> some View {
-        self.font(.body1)
-    }
-    
-    func body2Style() -> some View {
-        self.font(.body2)
-    }
-    
-    // MARK: Caption Modifier
-    func captionStyle() -> some View {
-        self.font(.caption)
-    }
-}
-
-// MARK: - Text Style Structs for Reusability
+// MARK: - Text Style Modifiers
 struct TextStyles {
-    // MARK: Heading Styles
     struct H1: ViewModifier {
         func body(content: Content) -> some View {
             content
                 .font(.h1)
-                .foregroundColor(.text1)
-        }
-    }
-    
-    struct H2: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .font(.h2)
-                .foregroundColor(.text1)
-        }
-    }
-    
-    struct H3: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .font(.h3)
                 .foregroundColor(.text1)
         }
     }
@@ -123,23 +30,6 @@ struct TextStyles {
         }
     }
     
-    struct H5: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .font(.h5)
-                .foregroundColor(.text1)
-        }
-    }
-    
-    struct H6: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .font(.h6)
-                .foregroundColor(.text1)
-        }
-    }
-    
-    // MARK: Body Styles
     struct Body1: ViewModifier {
         func body(content: Content) -> some View {
             content
@@ -156,7 +46,6 @@ struct TextStyles {
         }
     }
     
-    // MARK: Caption Style
     struct Caption: ViewModifier {
         func body(content: Content) -> some View {
             content
@@ -166,7 +55,7 @@ struct TextStyles {
     }
 }
 
-// MARK: - Convenient View Extensions
+// MARK: - View Extension
 extension View {
     func textStyle<Style: ViewModifier>(_ style: Style) -> some View {
         self.modifier(style)

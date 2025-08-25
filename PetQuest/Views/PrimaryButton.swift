@@ -27,7 +27,7 @@ struct PrimaryButton: View {
                 }
                 
                 Text(title)
-                    .font(.custom("Fredoka-Medium", size: style.fontSize))
+                    .font(style.font)
             }
             .foregroundColor(style.textColor)
             .padding(.horizontal, style.horizontalPadding)
@@ -60,11 +60,11 @@ enum ButtonStyleType {
         }
     }
     
-    var fontSize: CGFloat {
+    var font: Font {
         switch self {
-        case .primary: return 18
-        case .secondary: return 16
-        case .small: return 18
+        case .primary: return .h4
+        case .secondary: return .h5
+        case .small: return .h4
         }
     }
     
