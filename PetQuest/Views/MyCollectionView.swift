@@ -3,17 +3,8 @@ import SwiftUI
 struct MyCollectionView: View {
     @State private var searchText = ""
     @State private var selectedTab: TabItem = .collection
-    
-    let samplePets: [GamePet] = [
-        GamePet(name: "Roxie", breed: "Jindo", type: .fire, level: 22, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Luna", breed: "Jindo", type: .water, level: 20, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Kobo", breed: "Border Collie", type: .earth, level: 18, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Bailey", breed: "Bordoodle", type: .air, level: 17, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Fifi", breed: "Pomeranian", type: .lightning, level: 11, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Titus", breed: "Border Collie", type: .frost, level: 97, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Zeno", breed: "Border Collie", type: .shadow, level: 5, hp: 71, attack: 52, defense: 38, speed: 84),
-        GamePet(name: "Troy", breed: "German Shepherd", type: .grass, level: 99, hp: 71, attack: 52, defense: 38, speed: 84)
-    ]
+    @StateObject private var petStore = PetStore()
+    @StateObject private var navigationManager = NavigationManager()
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -25,7 +16,12 @@ struct MyCollectionView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: AddPetView()) {
+                    NavigationLink(
+                        destination: AddPetView()
+                            .environmentObject(petStore)
+                            .environmentObject(navigationManager),
+                        isActive: $navigationManager.isAddPetFlowActive
+                    ) {
                         HStack(spacing: 6) {
                             Image(systemName: "plus")
                                 .font(.system(size: 16, weight: .medium))
@@ -38,6 +34,9 @@ struct MyCollectionView: View {
                         .padding(.vertical, 8)
                         .background(Color.brandPrimary)
                         .cornerRadius(20)
+                    }
+                    .onTapGesture {
+                        navigationManager.startAddPetFlow()
                     }
                 }
                 
@@ -79,7 +78,7 @@ struct MyCollectionView: View {
                 // All pets section
                 VStack(alignment: .leading, spacing: 12) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("All pets (\(samplePets.count))")
+                        Text("All pets (\(petStore.pets.count))")
                             .font(.h5)
                             .foregroundColor(Color.text2)
                         
@@ -91,7 +90,7 @@ struct MyCollectionView: View {
                     // Pet Cards
                     ScrollView {
                         LazyVStack(spacing: 12) {
-                            ForEach(samplePets) { pet in
+                            ForEach(petStore.pets) { pet in
                                 AnimalPreviewCard(pet: pet)
                             }
                         }

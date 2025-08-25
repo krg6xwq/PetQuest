@@ -8,7 +8,10 @@ struct AddPetDetailsView: View {
     @State private var isOwner = true
     @State private var showingAnimalPicker = false
     @State private var showingBreedPicker = false
+    @State private var navigateToSummary = false
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var petStore: PetStore
+    @EnvironmentObject var navigationManager: NavigationManager
     
     let animalOptions = ["Dog", "Cat", "Rabbit", "Bird", "Fish", "Hamster"]
     let breedOptions = ["Labrador", "Golden Retriever", "German Shepherd", "Bulldog", "Poodle", "Beagle"]
@@ -179,10 +182,28 @@ struct AddPetDetailsView: View {
             
             // Next Button
             VStack {
+                NavigationLink(
+                    destination: Group {
+                        AddPetSummaryView(
+                            selectedImage: selectedImage,
+                            petName: petName,
+                            selectedAnimal: selectedAnimal,
+                            selectedBreed: selectedBreed,
+                            petStore: petStore
+                        ) {
+                            // Navigate back to MyCollectionView
+                            navigationManager.finishAddPetFlow()
+                        }
+                    },
+                    isActive: $navigateToSummary
+                ) {
+                    EmptyView()
+                }
+                
                 PrimaryButton(
                     title: "Next"
                 ) {
-                    // Navigate to next step
+                    navigateToSummary = true
                 }
             }
             .padding(.horizontal, 20)

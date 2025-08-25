@@ -8,12 +8,14 @@ struct AddPetView: View {
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var navigateToDetails = false
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var petStore: PetStore
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
         VStack(spacing: 0) {
             // Header
             AddPetHeader {
-                presentationMode.wrappedValue.dismiss()
+                navigationManager.finishAddPetFlow()
             }
             
             // Content
@@ -129,6 +131,8 @@ struct AddPetView: View {
                 destination: Group {
                     if let image = selectedImage {
                         AddPetDetailsView(selectedImage: image)
+                            .environmentObject(petStore)
+                            .environmentObject(navigationManager)
                     } else {
                         EmptyView()
                     }
