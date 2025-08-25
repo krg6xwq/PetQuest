@@ -30,6 +30,14 @@ struct TextStyles {
         }
     }
     
+    struct H5: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .font(.h5)
+                .foregroundColor(.text1)
+        }
+    }
+    
     struct Body1: ViewModifier {
         func body(content: Content) -> some View {
             content

@@ -6,6 +6,7 @@ struct AddPetView: View {
     @State private var showingImagePicker = false
     @State private var showingCamera = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var navigateToDetails = false
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -117,6 +118,16 @@ struct AddPetView: View {
         }
         .sheet(isPresented: $showingCamera) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
+        }
+        .onChange(of: selectedImage) { newImage in
+            if newImage != nil {
+                navigateToDetails = true
+            }
+        }
+        .sheet(isPresented: $navigateToDetails) {
+            if let image = selectedImage {
+                AddPetDetailsView(selectedImage: image)
+            }
         }
     }
 }
