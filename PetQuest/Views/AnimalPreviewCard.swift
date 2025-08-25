@@ -5,15 +5,19 @@ struct AnimalPreviewCard: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            // Pet Image
-            Image(systemName: "photo")
+            // Pet Image - Square 80x80
+            Rectangle()
+                .fill(Color.grey300)
                 .frame(width: 80, height: 80)
-                .background(Color.grey300)
-                .cornerRadius(8)
+                .overlay(
+                    Image(systemName: "photo")
+                        .font(.system(size: 24))
+                        .foregroundColor(.gray)
+                )
             
             // Pet Info Section
-            VStack(alignment: .leading, spacing: 0) {
-                // Top section with name, level, breed, and type
+            VStack(spacing: 0) {
+                // Top info section with colored background
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text(pet.name)
@@ -36,25 +40,26 @@ struct AnimalPreviewCard: View {
                         
                         // Type Badge
                         HStack(spacing: 4) {
-                            Circle()
-                                .fill(Color.petType(pet.type.rawValue))
-                                .frame(width: 16, height: 16)
+                            Image(systemName: "circle.fill")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color.petType(pet.type.rawValue))
                             
                             Text(pet.type.rawValue.capitalized)
                                 .font(.custom("Fredoka-Medium", size: 14))
                                 .foregroundColor(Color.petType(pet.type.rawValue))
                         }
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, 6)
                         .padding(.vertical, 2)
                         .background(Color.white)
-                        .cornerRadius(20)
+                        .cornerRadius(10)
                     }
                 }
                 .padding(.horizontal, 12)
-                .padding(.top, 8)
-                .padding(.bottom, 4)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.petType(pet.type.rawValue).opacity(0.15))
                 
-                // Stats Section
+                // Stats Section - White background, full width
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
@@ -111,10 +116,10 @@ struct AnimalPreviewCard: View {
                     .frame(width: 91)
                 }
                 .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                .padding(.vertical, 4)
+                .frame(maxWidth: .infinity)
                 .background(Color.white)
             }
-            .background(Color.petType(pet.type.rawValue).opacity(0.3))
         }
         .cornerRadius(8)
         .overlay(

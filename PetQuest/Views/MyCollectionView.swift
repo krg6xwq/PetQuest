@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MyCollectionView: View {
     @State private var searchText = ""
+    @State private var selectedTab: TabItem = .collection
     
     let samplePets: [GamePet] = [
         GamePet(name: "Roxie", breed: "Jindo", type: .fire, level: 22, hp: 71, attack: 52, defense: 38, speed: 84),
@@ -25,21 +26,12 @@ struct MyCollectionView: View {
                     
                     Spacer()
                     
-                    Button(action: {
+                    PrimaryButton(
+                        title: "Add pet",
+                        icon: "plus",
+                        style: .small
+                    ) {
                         // Add pet action
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "plus")
-                                .font(.system(size: 16, weight: .medium))
-                            
-                            Text("Add pet")
-                                .font(.custom("Fredoka-Medium", size: 18))
-                        }
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color.brandPrimary)
-                        .cornerRadius(20)
                     }
                 }
                 
@@ -106,45 +98,12 @@ struct MyCollectionView: View {
             .padding(.top, 20)
             .background(Color.white)
             
-            // Bottom Tab Bar
-            VStack(spacing: 0) {
-                Rectangle()
-                    .fill(Color.borderPrimary)
-                    .frame(height: 1)
-                
-                HStack {
-                    TabBarItem(icon: "house", label: "Home", isSelected: false)
-                    TabBarItem(icon: "bolt", label: "Battle", isSelected: false)
-                    TabBarItem(icon: "folder", label: "Collection", isSelected: true)
-                }
-                .padding(.horizontal, 40)
-                .padding(.vertical, 12)
-                .background(Color.white)
-                .frame(height: 80)
-            }
+            BottomTabBar(selectedTab: $selectedTab)
         }
         .edgesIgnoringSafeArea(.bottom)
     }
 }
 
-struct TabBarItem: View {
-    let icon: String
-    let label: String
-    let isSelected: Bool
-    
-    var body: some View {
-        VStack(spacing: 4) {
-            Image(systemName: icon)
-                .font(.system(size: 24))
-                .foregroundColor(isSelected ? Color.brandPrimary : Color.borderPrimary)
-            
-            Text(label)
-                .font(.custom("Quicksand-Medium", size: 12))
-                .foregroundColor(Color.text2)
-        }
-        .frame(maxWidth: .infinity)
-    }
-}
 
 #Preview {
     MyCollectionView()
