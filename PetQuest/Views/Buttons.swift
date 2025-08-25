@@ -5,21 +5,28 @@ struct PrimaryButton: View {
     let icon: String?
     let action: () -> Void
     let style: ButtonStyleType
+    let isEnabled: Bool
     
     init(
         title: String,
         icon: String? = nil,
         style: ButtonStyleType = .primary,
+        isEnabled: Bool = true,
         action: @escaping () -> Void
     ) {
         self.title = title
         self.icon = icon
         self.style = style
+        self.isEnabled = isEnabled
         self.action = action
     }
     
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            if isEnabled {
+                action()
+            }
+        }) {
             HStack(spacing: 8) {
                 if let icon = icon {
                     Image(systemName: icon)
@@ -29,17 +36,18 @@ struct PrimaryButton: View {
                 Text(title)
                     .font(.h4)
             }
-            .foregroundColor(style.textColor)
+            .foregroundColor(isEnabled ? style.textColor : Color.text2)
             .frame(maxWidth: .infinity)
             .frame(height: 48)
-            .background(style.backgroundColor)
+            .background(isEnabled ? style.backgroundColor : Color.grey300)
             .cornerRadius(100) // Fully rounded edges
             .overlay(
                 RoundedRectangle(cornerRadius: 100)
-                    .stroke(style.borderColor, lineWidth: style.borderWidth)
+                    .stroke(isEnabled ? style.borderColor : Color.clear, lineWidth: style.borderWidth)
             )
         }
         .buttonStyle(PlainButtonStyle())
+        .disabled(!isEnabled)
     }
 }
 
@@ -129,6 +137,13 @@ enum ButtonStyleType {
             icon: "camera"
         ) {
             print("Take photo tapped")
+        }
+        
+        PrimaryButton(
+            title: "Next",
+            isEnabled: false
+        ) {
+            print("Next tapped")
         }
         
         SecondaryButton(

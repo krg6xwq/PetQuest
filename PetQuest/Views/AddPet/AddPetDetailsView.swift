@@ -4,8 +4,8 @@ struct AddPetDetailsView: View {
     let selectedImage: UIImage
     @State private var petName = ""
     @State private var selectedAnimal = "Dog"
-    @State private var selectedBreed = "Labrador"
-    @State private var isOwner = true
+    @State private var selectedBreed = ""
+    @State private var isOwner = false
     @State private var showingAnimalPicker = false
     @State private var showingBreedPicker = false
     @State private var navigateToSummary = false
@@ -15,6 +15,12 @@ struct AddPetDetailsView: View {
     
     let animalOptions = ["Dog", "Cat", "Rabbit", "Bird", "Fish", "Hamster"]
     let breedOptions = ["Labrador", "Golden Retriever", "German Shepherd", "Bulldog", "Poodle", "Beagle"]
+    
+    private var isFormValid: Bool {
+        !petName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && 
+        !selectedAnimal.isEmpty && 
+        !selectedBreed.isEmpty
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -118,9 +124,9 @@ struct AddPetDetailsView: View {
                                     showingBreedPicker = true
                                 }) {
                                     HStack {
-                                        Text(selectedBreed)
+                                        Text(selectedBreed.isEmpty ? "Select" : selectedBreed)
                                             .font(.body1)
-                                            .foregroundColor(Color.text1)
+                                            .foregroundColor(selectedBreed.isEmpty ? Color.text2 : Color.text1)
                                         
                                         Spacer()
                                         
@@ -201,7 +207,8 @@ struct AddPetDetailsView: View {
                 }
                 
                 PrimaryButton(
-                    title: "Next"
+                    title: "Next",
+                    isEnabled: isFormValid
                 ) {
                     navigateToSummary = true
                 }
@@ -211,10 +218,6 @@ struct AddPetDetailsView: View {
         }
         .background(Color.white)
         .navigationBarHidden(true)
-        .onAppear {
-            // Pre-populate with detected values
-            petName = "Roxie"
-        }
         .actionSheet(isPresented: $showingAnimalPicker) {
             ActionSheet(
                 title: Text("Select Animal"),

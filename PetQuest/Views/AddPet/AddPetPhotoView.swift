@@ -125,7 +125,14 @@ struct AddPetView: View {
         .sheet(isPresented: $showingCamera) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
         }
-        // Removed automatic navigation - user must tap Next button when image is selected
+        .onChange(of: selectedImage) { newImage in
+            if newImage != nil {
+                // Automatically navigate when image is selected
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    navigateToDetails = true
+                }
+            }
+        }
         .background(
             NavigationLink(
                 destination: Group {
