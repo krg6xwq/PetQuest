@@ -3,6 +3,7 @@ import SwiftUI
 struct MyCollectionView: View {
     @State private var searchText = ""
     @State private var selectedTab: TabItem = .collection
+    @State private var showingAddPet = false
     
     let samplePets: [GamePet] = [
         GamePet(name: "Roxie", breed: "Jindo", type: .fire, level: 22, hp: 71, attack: 52, defense: 38, speed: 84),
@@ -30,7 +31,7 @@ struct MyCollectionView: View {
                         icon: "plus",
                         style: .small
                     ) {
-                        // Add pet action
+                        showingAddPet = true
                     }
                 }
                 
@@ -44,8 +45,8 @@ struct MyCollectionView: View {
                             .font(.h5)
                             .foregroundColor(Color.text1)
                     }
+                    .frame(height: 48)
                     .padding(.horizontal, 20)
-                    .padding(.vertical, 8)
                     .background(Color.white)
                     .cornerRadius(8)
                     .overlay(
@@ -100,6 +101,9 @@ struct MyCollectionView: View {
             BottomTabBar(selectedTab: $selectedTab)
         }
         .edgesIgnoringSafeArea(.bottom)
+        .sheet(isPresented: $showingAddPet) {
+            AddPetView()
+        }
     }
 }
 
