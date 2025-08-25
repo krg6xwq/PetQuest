@@ -8,7 +8,7 @@ struct AddPetDetailsView: View {
     @State private var isOwner = true
     @State private var showingAnimalPicker = false
     @State private var showingBreedPicker = false
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     let animalOptions = ["Dog", "Cat", "Rabbit", "Bird", "Fish", "Hamster"]
     let breedOptions = ["Labrador", "Golden Retriever", "German Shepherd", "Bulldog", "Poodle", "Beagle"]
@@ -16,36 +16,9 @@ struct AddPetDetailsView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Header
-            HStack {
-                Button(action: {
-                    dismiss()
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(Color.text2)
-                        
-                        Text("Back")
-                            .font(.h4)
-                            .foregroundColor(Color.text2)
-                    }
-                }
-                
-                Spacer()
-                
-                Text("Add new pet")
-                    .font(.h4)
-                    .foregroundColor(Color.text2)
-                
-                Spacer()
-                
-                // Empty space for alignment
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(width: 64, height: 22)
+            AddPetHeader {
+                presentationMode.wrappedValue.dismiss()
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
             
             ScrollView {
                 VStack(spacing: 32) {

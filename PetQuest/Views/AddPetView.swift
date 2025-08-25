@@ -7,41 +7,14 @@ struct AddPetView: View {
     @State private var showingCamera = false
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var navigateToDetails = false
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack(spacing: 0) {
             // Header
-            HStack {
-                Button(action: {
-                    dismiss()
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(Color.text2)
-                        
-                        Text("Back")
-                            .font(.h4)
-                            .foregroundColor(Color.text2)
-                    }
-                }
-                
-                Spacer()
-                
-                Text("Add new pet")
-                    .font(.h4)
-                    .foregroundColor(Color.text2)
-                
-                Spacer()
-                
-                // Empty space for alignment
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(width: 64, height: 22)
+            AddPetHeader {
+                presentationMode.wrappedValue.dismiss()
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
             
             // Content
             VStack(spacing: 32) {
@@ -124,11 +97,21 @@ struct AddPetView: View {
                 navigateToDetails = true
             }
         }
-        .sheet(isPresented: $navigateToDetails) {
-            if let image = selectedImage {
-                AddPetDetailsView(selectedImage: image)
+        .background(
+            NavigationLink(
+                destination: Group {
+                    if let image = selectedImage {
+                        AddPetDetailsView(selectedImage: image)
+                    } else {
+                        EmptyView()
+                    }
+                },
+                isActive: $navigateToDetails
+            ) {
+                EmptyView()
             }
-        }
+            .hidden()
+        )
     }
 }
 

@@ -3,7 +3,6 @@ import SwiftUI
 struct MyCollectionView: View {
     @State private var searchText = ""
     @State private var selectedTab: TabItem = .collection
-    @State private var showingAddPet = false
     
     let samplePets: [GamePet] = [
         GamePet(name: "Roxie", breed: "Jindo", type: .fire, level: 22, hp: 71, attack: 52, defense: 38, speed: 84),
@@ -26,12 +25,19 @@ struct MyCollectionView: View {
                     
                     Spacer()
                     
-                    PrimaryButton(
-                        title: "Add pet",
-                        icon: "plus",
-                        style: .small
-                    ) {
-                        showingAddPet = true
+                    NavigationLink(destination: AddPetView()) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 16, weight: .medium))
+                            
+                            Text("Add pet")
+                                .font(.h4)
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.brandPrimary)
+                        .cornerRadius(20)
                     }
                 }
                 
@@ -101,9 +107,6 @@ struct MyCollectionView: View {
             BottomTabBar(selectedTab: $selectedTab)
         }
         .edgesIgnoringSafeArea(.bottom)
-        .sheet(isPresented: $showingAddPet) {
-            AddPetView()
-        }
     }
 }
 
