@@ -8,7 +8,7 @@ struct AnimalPreviewCard: View {
             // Pet Image - Square 80x80
             Rectangle()
                 .fill(Color.grey300)
-                .frame(width: 80, height: 80)
+                .frame(width: 110)
                 .overlay(
                     Image(systemName: "photo")
                         .font(.system(size: 24))
@@ -57,7 +57,7 @@ struct AnimalPreviewCard: View {
                 .background(Color.petType(pet.type.rawValue).opacity(0.15))
                 
                 // Stats Section - White background, full width
-                HStack {
+                HStack(spacing: 32) {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text("HP")
@@ -110,7 +110,7 @@ struct AnimalPreviewCard: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 4)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.white)
             }
         }
