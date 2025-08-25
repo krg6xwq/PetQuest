@@ -61,28 +61,59 @@ struct AddPetView: View {
             }
             .padding(.horizontal, 20)
             
-            // Bottom Buttons
-            VStack(spacing: 20) {
-                PrimaryButton(
-                    title: "Take photo",
-                    icon: "camera",
-                    style: .primary
-                ) {
-                    sourceType = .camera
-                    showingCamera = true
+            // Bottom Buttons - Different layout based on image state
+            if selectedImage == nil {
+                // No image selected - show full-width buttons
+                VStack(spacing: 20) {
+                    PrimaryButton(
+                        title: "Take photo",
+                        icon: "camera"
+                    ) {
+                        sourceType = .camera
+                        showingCamera = true
+                    }
+                    
+                    SecondaryButton(
+                        title: "Choose photo",
+                        icon: "photo"
+                    ) {
+                        sourceType = .photoLibrary
+                        showingImagePicker = true
+                    }
                 }
-                
-                PrimaryButton(
-                    title: "Choose photo",
-                    icon: "photo",
-                    style: .secondary
-                ) {
-                    sourceType = .photoLibrary
-                    showingImagePicker = true
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
+            } else {
+                // Image selected - show side-by-side buttons + Next button
+                VStack(spacing: 20) {
+                    HStack(spacing: 12) {
+                        SecondaryButton(
+                            title: "Take photo",
+                            icon: "camera"
+                        ) {
+                            sourceType = .camera
+                            showingCamera = true
+                        }
+                        
+                        SecondaryButton(
+                            title: "Choose photo",
+                            icon: "photo"
+                        ) {
+                            sourceType = .photoLibrary
+                            showingImagePicker = true
+                        }
+                    }
+                    
+                    // Next button (primary style, full-width)
+                    PrimaryButton(
+                        title: "Next"
+                    ) {
+                        navigateToDetails = true
+                    }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
         }
         .background(Color.white)
         .navigationBarHidden(true)
@@ -92,11 +123,7 @@ struct AddPetView: View {
         .sheet(isPresented: $showingCamera) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
         }
-        .onChange(of: selectedImage) { newImage in
-            if newImage != nil {
-                navigateToDetails = true
-            }
-        }
+        // Removed automatic navigation - user must tap Next button when image is selected
         .background(
             NavigationLink(
                 destination: Group {

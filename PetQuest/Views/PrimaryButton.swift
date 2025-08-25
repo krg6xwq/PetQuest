@@ -20,20 +20,65 @@ struct PrimaryButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: style.iconSpacing) {
+            HStack(spacing: 8) {
                 if let icon = icon {
                     Image(systemName: icon)
-                        .font(.system(size: style.iconSize, weight: .medium))
+                        .font(.system(size: 20, weight: .medium))
                 }
                 
                 Text(title)
-                    .font(style.font)
+                    .font(.h4)
             }
             .foregroundColor(style.textColor)
-            .padding(.horizontal, style.horizontalPadding)
-            .padding(.vertical, style.verticalPadding)
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
             .background(style.backgroundColor)
-            .cornerRadius(style.cornerRadius)
+            .cornerRadius(100) // Fully rounded edges
+            .overlay(
+                RoundedRectangle(cornerRadius: 100)
+                    .stroke(style.borderColor, lineWidth: style.borderWidth)
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+// Create a separate SecondaryButton for clarity
+struct SecondaryButton: View {
+    let title: String
+    let icon: String?
+    let action: () -> Void
+    
+    init(
+        title: String,
+        icon: String? = nil,
+        action: @escaping () -> Void
+    ) {
+        self.title = title
+        self.icon = icon
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                if let icon = icon {
+                    Image(systemName: icon)
+                        .font(.system(size: 20, weight: .medium))
+                }
+                
+                Text(title)
+                    .font(.h4)
+            }
+            .foregroundColor(.brandPrimary)
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+            .background(Color.white)
+            .cornerRadius(100) // Fully rounded edges
+            .overlay(
+                RoundedRectangle(cornerRadius: 100)
+                    .stroke(Color.brandPrimary, lineWidth: 2)
+            )
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -60,51 +105,19 @@ enum ButtonStyleType {
         }
     }
     
-    var font: Font {
+    var borderColor: Color {
         switch self {
-        case .primary: return .h4
-        case .secondary: return .h5
-        case .small: return .h4
+        case .primary: return .clear
+        case .secondary: return .brandPrimary
+        case .small: return .clear
         }
     }
     
-    var horizontalPadding: CGFloat {
+    var borderWidth: CGFloat {
         switch self {
-        case .primary: return 16
-        case .secondary: return 16
-        case .small: return 12
-        }
-    }
-    
-    var verticalPadding: CGFloat {
-        switch self {
-        case .primary: return 12
-        case .secondary: return 10
-        case .small: return 8
-        }
-    }
-    
-    var cornerRadius: CGFloat {
-        switch self {
-        case .primary: return 12
-        case .secondary: return 8
-        case .small: return 20
-        }
-    }
-    
-    var iconSize: CGFloat {
-        switch self {
-        case .primary: return 18
-        case .secondary: return 16
-        case .small: return 16
-        }
-    }
-    
-    var iconSpacing: CGFloat {
-        switch self {
-        case .primary: return 8
-        case .secondary: return 6
-        case .small: return 6
+        case .primary: return 0
+        case .secondary: return 2
+        case .small: return 0
         }
     }
 }
@@ -112,26 +125,25 @@ enum ButtonStyleType {
 #Preview {
     VStack(spacing: 20) {
         PrimaryButton(
+            title: "Take photo",
+            icon: "camera"
+        ) {
+            print("Take photo tapped")
+        }
+        
+        SecondaryButton(
+            title: "Choose photo",
+            icon: "photo"
+        ) {
+            print("Choose photo tapped")
+        }
+        
+        PrimaryButton(
             title: "Add pet",
             icon: "plus",
             style: .small
         ) {
             print("Add pet tapped")
-        }
-        
-        PrimaryButton(
-            title: "Primary Button",
-            style: .primary
-        ) {
-            print("Primary button tapped")
-        }
-        
-        PrimaryButton(
-            title: "Secondary",
-            icon: "heart",
-            style: .secondary
-        ) {
-            print("Secondary button tapped")
         }
     }
     .padding()

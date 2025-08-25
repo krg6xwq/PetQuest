@@ -180,8 +180,7 @@ struct AddPetDetailsView: View {
             // Next Button
             VStack {
                 PrimaryButton(
-                    title: "Next",
-                    style: .primary
+                    title: "Next"
                 ) {
                     // Navigate to next step
                 }
