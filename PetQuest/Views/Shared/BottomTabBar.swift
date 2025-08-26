@@ -28,7 +28,7 @@ struct BottomTabBar: View {
             .padding(.horizontal, 40)
             .padding(.vertical, 12)
             .background(Color.white)
-            .frame(height: 80)
+            .frame(height: 40)
         }
     }
 }
