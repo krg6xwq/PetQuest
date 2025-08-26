@@ -90,38 +90,10 @@ struct UpdatesView: View {
                 
                 // Search and Filter
                 HStack(spacing: 12) {
-                    // Search Bar (reusing existing design from MyCollectionView)
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color.text2)
-                        
-                        TextField("Search", text: $searchText)
-                            .font(.h5)
-                            .foregroundColor(Color.text1)
-                    }
-                    .frame(height: 48)
-                    .padding(.horizontal, 20)
-                    .background(Color.white)
-                    .cornerRadius(8)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.borderPrimary, lineWidth: 1)
-                    )
+                    SearchBar(searchText: $searchText, placeholder: "Search")
                     
-                    // Filter Button (reusing existing design)
-                    Button(action: {
+                    FilterButton {
                         // Filter action
-                    }) {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color.brandPrimary)
-                            .frame(width: 48, height: 48)
-                            .background(Color.white)
-                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.borderPrimary, lineWidth: 1)
-                            )
                     }
                 }
                 
