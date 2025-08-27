@@ -1,7 +1,13 @@
 import SwiftUI
 
-struct AddPetHeader: View {
+struct NavigationHeader: View {
+    let title: String
     let onBackTap: () -> Void
+    
+    init(title: String = "Add new pet", onBackTap: @escaping () -> Void) {
+        self.title = title
+        self.onBackTap = onBackTap
+    }
     
     var body: some View {
         HStack {
@@ -16,10 +22,11 @@ struct AddPetHeader: View {
                         .foregroundColor(Color.text2)
                 }
             }
+            .buttonStyle(PlainButtonStyle())
             
             Spacer()
             
-            Text("Add new pet")
+            Text(title)
                 .font(.h4)
                 .foregroundColor(Color.text2)
             
@@ -36,7 +43,18 @@ struct AddPetHeader: View {
 }
 
 #Preview {
-    AddPetHeader {
-        print("Back tapped")
+    VStack(spacing: 20) {
+        NavigationHeader(title: "Add new pet") {
+            print("Back tapped")
+        }
+        
+        NavigationHeader(title: "Pet profile") {
+            print("Back tapped")
+        }
+        
+        NavigationHeader(title: "Settings") {
+            print("Back tapped")
+        }
     }
+    .background(Color.bgTertiary)
 }

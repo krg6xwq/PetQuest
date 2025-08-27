@@ -4,8 +4,8 @@ struct PetInfoCard: View {
     let pet: GamePet
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            VStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
+            VStack(spacing: 4) {
                 // Type
                 HStack {
                     Text("Type:")
@@ -59,7 +59,7 @@ struct PetInfoCard: View {
                 .font(.caption)
                 .foregroundColor(Color.text2)
         }
-        .padding(12)
+        .padding(8)
         .background(Color.petType(pet.type.rawValue).opacity(0.15))
         .cornerRadius(8)
     }

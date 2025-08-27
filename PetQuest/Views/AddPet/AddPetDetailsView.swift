@@ -25,7 +25,7 @@ struct AddPetDetailsView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Header
-            AddPetHeader {
+            NavigationHeader(title: "Add new pet") {
                 presentationMode.wrappedValue.dismiss()
             }
             

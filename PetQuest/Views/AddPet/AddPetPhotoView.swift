@@ -14,7 +14,7 @@ struct AddPetView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Header
-            AddPetHeader {
+            NavigationHeader(title: "Add new pet") {
                 navigationManager.finishAddPetFlow()
             }
             

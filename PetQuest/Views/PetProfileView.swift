@@ -28,35 +28,13 @@ struct PetProfileView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            // Header
+            NavigationHeader(title: "Pet profile") {
+                presentationMode.wrappedValue.dismiss()
+            }
+            
             // Main Content
             VStack(spacing: 24) {
-                // Header
-                HStack {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack(spacing: 8) {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 16))
-                                .foregroundColor(Color.text2)
-                            
-                            Text("Back")
-                                .font(.h4)
-                                .foregroundColor(Color.text2)
-                        }
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Spacer()
-                    
-                    Text("Pet profile")
-                        .font(.h4)
-                        .foregroundColor(Color.text2)
-                    
-                    Spacer()
-                        .frame(width: 64)
-                }
-                
                 // Pet Info Section
                 VStack(spacing: 20) {
                     // Name and Level
