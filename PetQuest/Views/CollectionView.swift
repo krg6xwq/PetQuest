@@ -63,7 +63,10 @@ struct MyCollectionView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(petStore.pets) { pet in
-                                AnimalPreviewCard(pet: pet)
+                                NavigationLink(destination: PetProfileView(pet: pet)) {
+                                    AnimalPreviewCard(pet: pet)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
