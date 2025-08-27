@@ -34,7 +34,7 @@ struct PetProfileView: View {
             }
             
             // Main Content
-            VStack(spacing: 24) {
+            VStack(spacing: 12) {
                 // Pet Info Section
                 VStack(spacing: 20) {
                     // Name and Level
@@ -95,7 +95,8 @@ struct PetProfileView: View {
                     
                     // Pet Info Card
                     PetInfoCard(pet: pet)
-                        .frame(width: 210, height: 120)
+                        .frame(height: 120)
+                        .frame(maxWidth: .infinity)
                 }
                 
                 // Stats Card

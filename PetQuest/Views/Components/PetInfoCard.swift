@@ -59,7 +59,8 @@ struct PetInfoCard: View {
                 .font(.caption)
                 .foregroundColor(Color.text2)
         }
-        .padding(8)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
         .background(Color.petType(pet.type.rawValue).opacity(0.15))
         .cornerRadius(8)
     }
