@@ -113,7 +113,10 @@ struct UpdatesView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(sampleUpdates) { update in
-                                UpdateCard(update: update)
+                                NavigationLink(destination: ViewUpdateView(update: update)) {
+                                    UpdateCard(update: update)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
