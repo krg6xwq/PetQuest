@@ -139,9 +139,7 @@ struct PetProfileView: View {
             
             // Update Button
             VStack {
-                Button(action: {
-                    // Add update action
-                }) {
+                NavigationLink(destination: AddUpdatePhotoView(pet: pet)) {
                     HStack(spacing: 8) {
                         Image(systemName: "plus")
                             .font(.system(size: 20, weight: .medium))
