@@ -56,14 +56,14 @@ struct PetProfileView: View {
                             ZStack(alignment: .leading) {
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(Color(red: 0.97, green: 0.97, blue: 0.97))
-                                    .frame(height: 8)
+                                    .frame(height: 4)
                                 
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(Color.brandPrimary)
-                                    .frame(width: geometry.size.width * 0.875, height: 8) // 1750/2000 = 0.875
+                                    .frame(width: geometry.size.width * 0.875, height: 4) // 1750/2000 = 0.875
                             }
                         }
-                        .frame(height: 8)
+                        .frame(height: 4)
                         
                         // XP Text
                         HStack {
