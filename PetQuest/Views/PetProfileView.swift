@@ -134,7 +134,7 @@ struct PetProfileView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
-            .padding(.top, 20)
+            .padding(.top, 2)
             .background(Color.white)
             
             // Update Button

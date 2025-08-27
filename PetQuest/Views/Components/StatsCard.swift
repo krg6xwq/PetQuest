@@ -7,7 +7,7 @@ struct StatsCardView: View {
     let speed: Int
     
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 0) {
             StatRow(label: "HP", value: hp, color: Color.attributeHP, maxValue: 100)
             StatRow(label: "Attack", value: attack, color: Color.attributeAttack, maxValue: 100)
             StatRow(label: "Defense", value: defense, color: Color.attributeDefense, maxValue: 100)
