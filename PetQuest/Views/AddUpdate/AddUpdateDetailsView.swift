@@ -17,24 +17,30 @@ struct AddUpdateDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     let activityOptions = [
-        "Walk 🐕‍🦺",
+        "Chilling 😌",
+        "Walk 🐕",
+        "Eating 🍽️",
+        "Snooze 💤",
         "Play 🎾",
-        "Sleep 😴",
-        "Eat 🍽️",
         "Bath 🛁",
-        "Training 🎓",
-        "Park 🌳",
-        "Run 🏃‍♂️"
+        "Check-up 🩺",
+        "Toilet 💩",
+        "Other"
     ]
     
     let moodOptions = [
-        "Happy 😁",
-        "Excited 🤩",
+        "Excited/playful 🕺",
+        "Happy 😊",
+        "Loving 😍",
         "Calm 😌",
-        "Playful 😜",
-        "Tired 😪",
         "Curious 🤔",
-        "Content 😊"
+        "Hungry 🍗",
+        "Tired 😴",
+        "bored/lazy 🙄",
+        "Sick 🤢",
+        "Sad 😢",
+        "Scared 😨",
+        "Angry 😡"
     ]
     
     private var isFormValid: Bool {
@@ -50,139 +56,140 @@ struct AddUpdateDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
             }
             
-            ScrollView {
-                VStack(spacing: 32) {
-                    VStack(spacing: 20) {
-                        Text("Step 2/2")
-                            .font(.h4)
-                            .foregroundColor(Color.brandPrimary)
+            // Content
+            VStack(spacing: 32) {
+                VStack(spacing: 20) {
+                    Text("Step 2/2")
+                        .font(.h4)
+                        .foregroundColor(Color.brandPrimary)
+                    
+                    VStack(spacing: 8) {
+                        Text("Add a description")
+                            .font(.custom("Fredoka-SemiBold", size: 20))
+                            .foregroundColor(Color.text1)
                         
-                        VStack(spacing: 8) {
-                            Text("Add a description")
-                                .font(.custom("Fredoka-SemiBold", size: 20))
-                                .foregroundColor(Color.text1)
-                            
-                            Text("Describe what your pet was doing in the photo")
-                                .font(.body1)
-                                .foregroundColor(Color.text1)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 20)
+                        Text("Describe what your pet was doing in the photo")
+                            .font(.body1)
+                            .foregroundColor(Color.text1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                    }
+                }
+                
+                // Pet Image
+                Image(uiImage: selectedImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 120, height: 120)
+                    .clipped()
+                    .cornerRadius(8)
+                
+                // Form Fields
+                VStack(spacing: 20) {
+                    // Description Field
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Description")
+                            .textStyle(TextStyles.H5())
+                        
+                        VStack {
+                            ZStack(alignment: .topLeading) {
+                                if descriptionText.isEmpty {
+                                    Text("Write a description")
+                                        .font(.body1)
+                                        .foregroundColor(Color.text2.opacity(0.6))
+                                        .padding(.horizontal, 20)
+                                        .padding(.vertical, 20)
+                                        .allowsHitTesting(false)
+                                }
+                                
+                                TextEditor(text: $descriptionText)
+                                    .font(.body1)
+                                    .foregroundColor(Color.text1)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 16)
+                                    .scrollContentBackground(.hidden)
+                                    .background(Color.clear)
+                            }
                         }
+                        .frame(height: 120)
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.borderPrimary, lineWidth: 1)
+                        )
+                        .clipped()
                     }
                     
-                    // Pet Image
-                    Image(uiImage: selectedImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 120, height: 120)
-                        .clipped()
-                        .cornerRadius(8)
-                    
-                    // Form Fields
-                    VStack(spacing: 20) {
-                        // Description Field
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Description")
-                                .textStyle(TextStyles.H5())
-                            
-                            VStack {
-                                ZStack(alignment: .topLeading) {
-                                    if descriptionText.isEmpty {
-                                        Text("Luna went for a walk and played with the other dogs and jumped into the pool...")
-                                            .font(.body1)
-                                            .foregroundColor(Color.text2.opacity(0.6))
-                                            .padding(.horizontal, 20)
-                                            .padding(.vertical, 20)
-                                            .allowsHitTesting(false)
-                                    }
-                                    
-                                    TextEditor(text: $descriptionText)
-                                        .font(.body1)
-                                        .foregroundColor(Color.text1)
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 16)
-                                        .scrollContentBackground(.hidden)
-                                        .background(Color.clear)
-                                }
+                    // Activity Field
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Activity")
+                            .textStyle(TextStyles.H5())
+                        
+                        Button(action: {
+                            print("Activity button tapped")
+                            activeSheet = .activity
+                        }) {
+                            HStack {
+                                Text(selectedActivity.isEmpty ? "Select activity" : selectedActivity)
+                                    .font(.body1)
+                                    .foregroundColor(selectedActivity.isEmpty ? Color.text2 : Color.text1)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(Color.text2)
                             }
-                            .frame(height: 175)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .frame(height: 48)
                             .background(Color.white)
                             .cornerRadius(8)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.borderPrimary, lineWidth: 1)
                             )
-                            .clipped()
                         }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    // Mood Field
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Mood")
+                            .textStyle(TextStyles.H5())
                         
-                        // Activity Field
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Activity")
-                                .textStyle(TextStyles.H5())
-                            
-                            Button(action: {
-                                print("Activity button tapped")
-                                activeSheet = .activity
-                            }) {
-                                HStack {
-                                    Text(selectedActivity.isEmpty ? "Select activity" : selectedActivity)
-                                        .font(.body1)
-                                        .foregroundColor(selectedActivity.isEmpty ? Color.text2 : Color.text1)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "chevron.down")
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(Color.text2)
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 12)
-                                .frame(height: 48)
-                                .background(Color.white)
-                                .cornerRadius(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.borderPrimary, lineWidth: 1)
-                                )
+                        Button(action: {
+                            activeSheet = .mood
+                        }) {
+                            HStack {
+                                Text(selectedMood.isEmpty ? "Select mood" : selectedMood)
+                                    .font(.body1)
+                                    .foregroundColor(selectedMood.isEmpty ? Color.text2 : Color.text1)
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(Color.text2)
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .frame(height: 48)
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.borderPrimary, lineWidth: 1)
+                            )
                         }
-                        
-                        // Mood Field
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Mood")
-                                .textStyle(TextStyles.H5())
-                            
-                            Button(action: {
-                                activeSheet = .mood
-                            }) {
-                                HStack {
-                                    Text(selectedMood.isEmpty ? "Select mood" : selectedMood)
-                                        .font(.body1)
-                                        .foregroundColor(selectedMood.isEmpty ? Color.text2 : Color.text1)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "chevron.down")
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(Color.text2)
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 12)
-                                .frame(height: 48)
-                                .background(Color.white)
-                                .cornerRadius(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.borderPrimary, lineWidth: 1)
-                                )
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .padding(.horizontal, 20)
+                
+                Spacer()
             }
+            .padding(.horizontal, 20)
             
             // Submit Button
             VStack {
@@ -190,8 +197,11 @@ struct AddUpdateDetailsView: View {
                     title: "Submit",
                     isEnabled: isFormValid
                 ) {
-                    // Handle submission - for now just go back
+                    // Navigate back to PetProfileView (dismiss both AddUpdateDetailsView and AddUpdatePhotoView)
                     presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             }
             .padding(.horizontal, 20)
