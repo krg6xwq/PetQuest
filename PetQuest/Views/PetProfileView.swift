@@ -111,9 +111,7 @@ struct PetProfileView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            // See all updates
-                        }) {
+                        NavigationLink(destination: ViewAllUpdatesView(pet: pet)) {
                             Text("See all")
                                 .font(.h4)
                                 .foregroundColor(Color.petType(pet.type.rawValue))
