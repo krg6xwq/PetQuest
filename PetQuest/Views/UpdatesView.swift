@@ -2,6 +2,8 @@ import SwiftUI
 
 struct UpdatesView: View {
     @State private var searchText = ""
+    @State private var navigateToSelectPet = false
+    @EnvironmentObject var petStore: PetStore
     
     // Mock data for updates
     let sampleUpdates: [PetUpdate] = [
@@ -71,7 +73,7 @@ struct UpdatesView: View {
                     Spacer()
                     
                     Button(action: {
-                        // Add update action
+                        navigateToSelectPet = true
                     }) {
                         HStack(spacing: 6) {
                             Image(systemName: "plus")
@@ -127,9 +129,20 @@ struct UpdatesView: View {
             .padding(.horizontal, 20)
             .padding(.top, 20)
             .background(Color.white)
+            .background(
+                NavigationLink(
+                    destination: SelectPetView()
+                        .environmentObject(petStore),
+                    isActive: $navigateToSelectPet
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+            )
     }
 }
 
 #Preview {
     UpdatesView()
+        .environmentObject(PetStore())
 }

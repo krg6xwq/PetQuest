@@ -144,7 +144,7 @@ struct PetProfileView: View {
                         Image(systemName: "plus")
                             .font(.system(size: 20, weight: .medium))
                         
-                        Text("Update")
+                        Text("Add update")
                             .font(.h4)
                     }
                     .foregroundColor(.white)
