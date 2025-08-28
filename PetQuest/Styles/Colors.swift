@@ -104,4 +104,19 @@ extension Color {
     static func petType(_ type: String) -> Color {
         return petTypeColors[type.lowercased()] ?? .grey400
     }
+    
+    static let petTypeIcons: [String: String] = [
+        "fire": "flame.fill",
+        "water": "drop.fill",
+        "earth": "mountain.2.fill",
+        "air": "wind",
+        "lightning": "bolt.fill",
+        "frost": "snowflake",
+        "shadow": "moon.fill",
+        "grass": "leaf.fill"
+    ]
+    
+    static func petTypeIcon(_ type: String) -> String {
+        return petTypeIcons[type.lowercased()] ?? "circle.fill"
+    }
 }

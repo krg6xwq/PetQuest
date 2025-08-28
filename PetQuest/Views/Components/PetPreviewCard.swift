@@ -37,7 +37,7 @@ struct AnimalPreviewCard: View {
                         
                         // Type Badge
                         HStack(spacing: 4) {
-                            Image(systemName: "circle.fill")
+                            Image(systemName: Color.petTypeIcon(pet.type.rawValue))
                                 .font(.system(size: 16))
                                 .foregroundColor(Color.petType(pet.type.rawValue))
                             
@@ -54,7 +54,16 @@ struct AnimalPreviewCard: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.petType(pet.type.rawValue).opacity(0.15))
+                .background(
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color.petType(pet.type.rawValue).opacity(0.1), location: 0),
+                            .init(color: Color.petType(pet.type.rawValue).opacity(0.3), location: 1)
+                        ]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
                 
                 // Stats Section - White background, full width
                 HStack(spacing: 32) {
