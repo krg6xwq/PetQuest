@@ -82,7 +82,6 @@ struct AddUpdatePhotoView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
             } else {
                 // Image selected - show side-by-side buttons + Next button
                 VStack(spacing: 20) {
@@ -112,7 +111,6 @@ struct AddUpdatePhotoView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
             }
         }
         .background(Color.white)

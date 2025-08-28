@@ -205,7 +205,6 @@ struct AddUpdateDetailsView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
         }
         .background(Color.white)
         .navigationBarHidden(true)

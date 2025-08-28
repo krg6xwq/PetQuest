@@ -130,7 +130,6 @@ struct AddPetSummaryView: View {
                 onFinish()
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
         }
         .background(Color.white)
         .navigationBarHidden(true)

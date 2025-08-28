@@ -156,7 +156,6 @@ struct PetProfileView: View {
                 .buttonStyle(PlainButtonStyle())
             }
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
             .background(Color.white)
         }
         .navigationBarHidden(true)
