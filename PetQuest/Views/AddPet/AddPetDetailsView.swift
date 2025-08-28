@@ -3,17 +3,21 @@ import SwiftUI
 struct AddPetDetailsView: View {
     let selectedImage: UIImage
     @State private var petName = ""
-    @State private var selectedAnimal = "Dog"
+    @State private var selectedAnimal = "Dog 🐶"
     @State private var selectedBreed = ""
     @State private var isOwner = false
-    @State private var showingAnimalPicker = false
-    @State private var showingBreedPicker = false
     @State private var navigateToSummary = false
+    @State private var activeSheet: ActiveSheet?
+    
+    enum ActiveSheet: Identifiable {
+        case animal, breed
+        var id: Int { hashValue }
+    }
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var petStore: PetStore
     @EnvironmentObject var navigationManager: NavigationManager
     
-    let animalOptions = ["Dog", "Cat", "Rabbit", "Bird", "Fish", "Hamster"]
+    let animalOptions = ["Dog 🐶", "Cat 🐱"]
     let breedOptions = ["Labrador", "Golden Retriever", "German Shepherd", "Bulldog", "Poodle", "Beagle"]
     
     private var isFormValid: Bool {
@@ -85,7 +89,7 @@ struct AddPetDetailsView: View {
                                     .textStyle(TextStyles.H5())
                                 
                                 Button(action: {
-                                    showingAnimalPicker = true
+                                    activeSheet = .animal
                                 }) {
                                     HStack {
                                         Text(selectedAnimal)
@@ -121,7 +125,7 @@ struct AddPetDetailsView: View {
                                     .textStyle(TextStyles.H5())
                                 
                                 Button(action: {
-                                    showingBreedPicker = true
+                                    activeSheet = .breed
                                 }) {
                                     HStack {
                                         Text(selectedBreed.isEmpty ? "Select" : selectedBreed)
@@ -217,25 +221,50 @@ struct AddPetDetailsView: View {
         }
         .background(Color.white)
         .navigationBarHidden(true)
-        .actionSheet(isPresented: $showingAnimalPicker) {
-            ActionSheet(
-                title: Text("Select Animal"),
-                buttons: animalOptions.map { animal in
-                    .default(Text(animal)) {
-                        selectedAnimal = animal
+        .sheet(item: $activeSheet) { sheet in
+            switch sheet {
+            case .animal:
+                VStack {
+                    Text("Select Animal")
+                        .font(.headline)
+                        .padding()
+                    
+                    List(animalOptions, id: \.self) { animal in
+                        Button(animal) {
+                            selectedAnimal = animal
+                            activeSheet = nil
+                        }
+                        .foregroundColor(.primary)
                     }
-                } + [.cancel()]
-            )
-        }
-        .actionSheet(isPresented: $showingBreedPicker) {
-            ActionSheet(
-                title: Text("Select Breed"),
-                buttons: breedOptions.map { breed in
-                    .default(Text(breed)) {
-                        selectedBreed = breed
+                    
+                    Button("Cancel") {
+                        activeSheet = nil
                     }
-                } + [.cancel()]
-            )
+                    .padding()
+                }
+                .presentationDetents([.medium])
+                
+            case .breed:
+                VStack {
+                    Text("Select Breed")
+                        .font(.headline)
+                        .padding()
+                    
+                    List(breedOptions, id: \.self) { breed in
+                        Button(breed) {
+                            selectedBreed = breed
+                            activeSheet = nil
+                        }
+                        .foregroundColor(.primary)
+                    }
+                    
+                    Button("Cancel") {
+                        activeSheet = nil
+                    }
+                    .padding()
+                }
+                .presentationDetents([.medium])
+            }
         }
     }
 }

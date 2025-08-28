@@ -46,7 +46,7 @@ struct AddPetSummaryView: View {
                         Image(uiImage: selectedImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 240, height: 240)
+                            .frame(width: 260, height: 260)
                             .clipped()
                             .cornerRadius(8)
                             .shadow(color: Color.black.opacity(0.25), radius: 4, x: 4, y: 6)
@@ -97,12 +97,8 @@ struct AddPetSummaryView: View {
                         }
                     }
                     .padding(12)
-                    .background(Color.white)
+                    .background(Color.petType(petType.rawValue).opacity(0.15))
                     .cornerRadius(8)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.borderPrimary, lineWidth: 1)
-                    )
                     
                     // Stats card
                     StatsCardView(hp: hp, attack: attack, defense: defense, speed: speed)
