@@ -3,6 +3,8 @@ import SwiftUI
 struct UpdatesView: View {
     @State private var searchText = ""
     @State private var navigateToSelectPet = false
+    @State private var selectedPet: GamePet?
+    @State private var selectedUpdate: PetUpdate?
     @EnvironmentObject var petStore: PetStore
     
     // Mock data for updates
@@ -115,10 +117,17 @@ struct UpdatesView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(sampleUpdates) { update in
-                                NavigationLink(destination: ViewUpdateView(update: update)) {
-                                    UpdateCard(update: update)
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                                UpdateCard(
+                                    update: update,
+                                    onPetNameTapped: {
+                                        if let pet = petStore.findPet(byName: update.petName) {
+                                            selectedPet = pet
+                                        }
+                                    },
+                                    onContentTapped: {
+                                        selectedUpdate = update
+                                    }
+                                )
                             }
                         }
                     }
@@ -130,14 +139,50 @@ struct UpdatesView: View {
             .padding(.top, 20)
             .background(Color.white)
             .background(
-                NavigationLink(
-                    destination: SelectPetView()
-                        .environmentObject(petStore),
-                    isActive: $navigateToSelectPet
-                ) {
-                    EmptyView()
+                VStack {
+                    NavigationLink(
+                        destination: SelectPetView()
+                            .environmentObject(petStore),
+                        isActive: $navigateToSelectPet
+                    ) {
+                        EmptyView()
+                    }
+                    .hidden()
+                    
+                    NavigationLink(
+                        destination: Group {
+                            if let pet = selectedPet {
+                                PetProfileView(pet: pet)
+                            } else {
+                                EmptyView()
+                            }
+                        },
+                        isActive: Binding<Bool>(
+                            get: { selectedPet != nil },
+                            set: { if !$0 { selectedPet = nil } }
+                        )
+                    ) {
+                        EmptyView()
+                    }
+                    .hidden()
+                    
+                    NavigationLink(
+                        destination: Group {
+                            if let update = selectedUpdate {
+                                ViewUpdateView(update: update)
+                            } else {
+                                EmptyView()
+                            }
+                        },
+                        isActive: Binding<Bool>(
+                            get: { selectedUpdate != nil },
+                            set: { if !$0 { selectedUpdate = nil } }
+                        )
+                    ) {
+                        EmptyView()
+                    }
+                    .hidden()
                 }
-                .hidden()
             )
     }
 }

@@ -15,4 +15,8 @@ class PetStore: ObservableObject {
     func addPet(_ pet: GamePet) {
         pets.append(pet)
     }
+    
+    func findPet(byName name: String) -> GamePet? {
+        return pets.first { $0.name == name }
+    }
 }
