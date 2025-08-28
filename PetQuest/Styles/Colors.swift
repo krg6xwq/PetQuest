@@ -119,4 +119,13 @@ extension Color {
     static func petTypeIcon(_ type: String) -> String {
         return petTypeIcons[type.lowercased()] ?? "circle.fill"
     }
+    
+    static let petTypeBadgeBackgrounds: [String: Color] = [
+        "air": Color(hex: "799798"),
+        "lightning": Color(hex: "837126")
+    ]
+    
+    static func petTypeBadgeBackground(_ type: String) -> Color {
+        return petTypeBadgeBackgrounds[type.lowercased()] ?? .white
+    }
 }

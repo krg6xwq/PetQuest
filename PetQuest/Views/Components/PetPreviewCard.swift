@@ -35,20 +35,7 @@ struct AnimalPreviewCard: View {
                         
                         Spacer()
                         
-                        // Type Badge
-                        HStack(spacing: 4) {
-                            Image(systemName: Color.petTypeIcon(pet.type.rawValue))
-                                .font(.system(size: 16))
-                                .foregroundColor(Color.petType(pet.type.rawValue))
-                            
-                            Text(pet.type.rawValue.capitalized)
-                                .font(.h6)
-                                .foregroundColor(Color.petType(pet.type.rawValue))
-                        }
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.white)
-                        .cornerRadius(10)
+                        TypeBadge(type: pet.type)
                     }
                 }
                 .padding(.horizontal, 12)
