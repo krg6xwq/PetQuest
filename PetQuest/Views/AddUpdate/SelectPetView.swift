@@ -107,7 +107,7 @@ struct SelectPetView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.top, 32)
+            .padding(.top, 12)
         }
         .background(Color.white)
         .navigationBarHidden(true)

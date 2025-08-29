@@ -51,7 +51,7 @@ struct SimpleUpdateCard: View {
                     Text(update.description)
                         .font(.body2)
                         .foregroundColor(Color.text1)
-                        .lineLimit(3)
+                        .lineLimit(4)
                         .multilineTextAlignment(.leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -10,7 +10,7 @@ struct FilterButton: View {
     var body: some View {
         Button(action: action) {
             Image(systemName: "slider.horizontal.3")
-                .font(.system(size: 16))
+                .font(.system(size: 24))
                 .foregroundColor(Color.brandPrimary)
                 .frame(width: 48, height: 48)
                 .background(Color.white)

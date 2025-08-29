@@ -33,14 +33,14 @@ struct UpdateCard: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 96, height: 96)
                             .clipped()
-                            .cornerRadius(8)
+                            .cornerRadius(4)
                     } else {
                         Image("dog-walk")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 96, height: 96)
                             .clipped()
-                            .cornerRadius(8)
+                            .cornerRadius(4)
                     }
                     
                     // Content
@@ -66,7 +66,7 @@ struct UpdateCard: View {
                         Text(update.description)
                             .font(.body2)
                             .foregroundColor(Color.text1)
-                            .lineLimit(3)
+                            .lineLimit(4)
                             .multilineTextAlignment(.leading)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)

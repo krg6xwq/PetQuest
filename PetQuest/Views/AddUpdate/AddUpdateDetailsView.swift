@@ -4,6 +4,7 @@ struct AddUpdateDetailsView: View {
     let pet: GamePet
     let selectedImage: UIImage
     @State private var descriptionText = ""
+    private let maxDescriptionLength = 300
     @State private var selectedActivity = ""
     @State private var selectedMood = ""
     @State private var showingActivityPicker = false
@@ -72,6 +73,7 @@ struct AddUpdateDetailsView: View {
                             .font(.body1)
                             .foregroundColor(Color.text1)
                             .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
                             .padding(.horizontal, 20)
                     }
                 }
@@ -109,6 +111,11 @@ struct AddUpdateDetailsView: View {
                                     .padding(.vertical, 16)
                                     .scrollContentBackground(.hidden)
                                     .background(Color.clear)
+                                    .onChange(of: descriptionText) { newValue in
+                                        if newValue.count > maxDescriptionLength {
+                                            descriptionText = String(newValue.prefix(maxDescriptionLength))
+                                        }
+                                    }
                             }
                         }
                         .frame(height: 120)
@@ -119,6 +126,13 @@ struct AddUpdateDetailsView: View {
                                 .stroke(Color.borderPrimary, lineWidth: 1)
                         )
                         .clipped()
+                        
+                        HStack {
+                            Spacer()
+                            Text("\(descriptionText.count)/\(maxDescriptionLength)")
+                                .font(.caption)
+                                .foregroundColor(Color.text2)
+                        }
                     }
                     
                     // Activity Field

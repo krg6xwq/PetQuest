@@ -61,15 +61,7 @@ struct AddPetSummaryView: View {
                             
                             Spacer()
                             
-                            HStack(spacing: 4) {
-                                Image(systemName: "circle.fill")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color.petType(petType.rawValue))
-                                
-                                Text(petType.rawValue.capitalized)
-                                    .font(.h5)
-                                    .foregroundColor(Color.petType(petType.rawValue))
-                            }
+                            TypeBadge(type: petType)
                         }
                         
                         HStack {

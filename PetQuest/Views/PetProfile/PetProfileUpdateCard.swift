@@ -13,14 +13,14 @@ struct PetProfileUpdateCard: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 160)
                         .clipped()
-                        .cornerRadius(8, corners: [.topLeft, .topRight])
+                        .cornerRadius(4, corners: [.topLeft, .topRight])
                 } else {
                     Image("dog-walk")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(height: 160)
                         .clipped()
-                        .cornerRadius(8, corners: [.topLeft, .topRight])
+                        .cornerRadius(4, corners: [.topLeft, .topRight])
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
