@@ -6,14 +6,11 @@ struct AnimalPreviewCard: View {
     var body: some View {
         HStack(spacing: 0) {
             // Pet Image - Square 80x80
-            Rectangle()
-                .fill(Color.grey300)
-                .frame(width: 110)
-                .overlay(
-                    Image(systemName: "photo")
-                        .font(.system(size: 24))
-                        .foregroundColor(.gray)
-                )
+            Image("dog-superman")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 110, height: 110)
+                .clipped()
             
             // Pet Info Section
             VStack(spacing: 0) {

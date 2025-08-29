@@ -4,66 +4,66 @@ struct PetProfileUpdateCard: View {
     let update: PetUpdate
     
     var body: some View {
-        VStack(spacing: 8) {
-            // Image
-            if let image = update.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 160)
-                    .clipped()
-                    .cornerRadius(8, corners: [.topLeft, .topRight])
-            } else {
-                Rectangle()
-                    .fill(Color.grey300)
-                    .frame(height: 160)
-                    .cornerRadius(8, corners: [.topLeft, .topRight])
-                    .overlay(
-                        Image(systemName: "photo")
-                            .font(.system(size: 32))
-                            .foregroundColor(.gray)
-                    )
-            }
-            
-            VStack(alignment: .leading, spacing: 8) {
-                // Date
-                Text(update.timestamp)
-                    .font(.h5)
-                    .foregroundColor(Color.text1)
-                
-                // Tags
-                HStack(spacing: 4) {
-                    ForEach(update.tags, id: \.self) { tag in
-                        Text(tag)
-                            .font(.caption)
-                            .foregroundColor(Color.text2)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 2)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.borderPrimary, lineWidth: 1)
-                            )
-                    }
-                    Spacer()
+        NavigationLink(destination: ViewUpdateView(update: update)) {
+            VStack(spacing: 8) {
+                // Image
+                if let image = update.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 160)
+                        .clipped()
+                        .cornerRadius(8, corners: [.topLeft, .topRight])
+                } else {
+                    Image("dog-walk")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(height: 160)
+                        .clipped()
+                        .cornerRadius(8, corners: [.topLeft, .topRight])
                 }
                 
-                // Description
-                Text(update.description)
-                    .font(.body2)
-                    .foregroundColor(Color.text1)
-                    .lineLimit(3)
-                    .multilineTextAlignment(.leading)
+                VStack(alignment: .leading, spacing: 8) {
+                    // Date
+                    Text(update.timestamp)
+                        .font(.h5)
+                        .foregroundColor(Color.text1)
+                    
+                    // Tags
+                    HStack(spacing: 4) {
+                        ForEach(update.tags, id: \.self) { tag in
+                            Text(tag)
+                                .font(.caption)
+                                .foregroundColor(Color.text2)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background(Color.white)
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.borderPrimary, lineWidth: 1)
+                                )
+                        }
+                        Spacer()
+                    }
+                    
+                    // Description
+                    Text(update.description)
+                        .font(.body2)
+                        .foregroundColor(Color.text1)
+                        .lineLimit(3)
+                        .multilineTextAlignment(.leading)
+                }
+                .padding(8)
             }
-            .padding(8)
+            .background(Color.bgTertiary)
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.borderPrimary, lineWidth: 1)
+            )
         }
-        .background(Color.bgTertiary)
-        .cornerRadius(8)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.borderPrimary, lineWidth: 1)
-        )
+        .buttonStyle(PlainButtonStyle())
     }
 }
 

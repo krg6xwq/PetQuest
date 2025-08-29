@@ -83,15 +83,12 @@ struct PetProfileView: View {
                 // Pet Image and Info Card
                 HStack(spacing: 20) {
                     // Pet Image
-                    Rectangle()
-                        .fill(Color.grey300)
+                    Image("dog-superman")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 120, height: 120)
+                        .clipped()
                         .cornerRadius(8)
-                        .overlay(
-                            Image(systemName: "photo")
-                                .font(.system(size: 32))
-                                .foregroundColor(.gray)
-                        )
                     
                     // Pet Info Card
                     PetInfoCard(pet: pet)

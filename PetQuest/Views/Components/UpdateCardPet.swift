@@ -29,15 +29,12 @@ struct SimpleUpdateCard: View {
                         .clipped()
                         .cornerRadius(8)
                 } else {
-                    Rectangle()
-                        .fill(Color.grey300)
+                    Image("dog-walk")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 96, height: 96)
+                        .clipped()
                         .cornerRadius(8)
-                        .overlay(
-                            Image(systemName: "photo")
-                                .font(.system(size: 24))
-                                .foregroundColor(.gray)
-                        )
                 }
                 
                 // Content

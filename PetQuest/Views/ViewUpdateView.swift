@@ -34,16 +34,13 @@ struct ViewUpdateView: View {
                         .clipped()
                         .cornerRadius(16)
                 } else {
-                    Rectangle()
-                        .fill(Color.grey300)
+                    Image("dog-walk")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(maxWidth: .infinity)
                         .aspectRatio(1, contentMode: .fit)
+                        .clipped()
                         .cornerRadius(16)
-                        .overlay(
-                            Image(systemName: "photo")
-                                .font(.system(size: 48))
-                                .foregroundColor(.gray)
-                        )
                 }
                 
                 // Tags and XP Section
