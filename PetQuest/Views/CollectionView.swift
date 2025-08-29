@@ -2,17 +2,67 @@ import SwiftUI
 
 struct MyCollectionView: View {
     @State private var searchText = ""
+    @State private var showingFilters = false
+    @State private var sortBy: SortOption = .level
+    @State private var filterType: GamePetType?
+    @State private var filterBreed = ""
+    @State private var levelRange: ClosedRange<Double> = 1...99
     @StateObject private var petStore = PetStore()
     @StateObject private var navigationManager = NavigationManager()
     
     var filteredPets: [GamePet] {
-        if searchText.isEmpty {
-            return petStore.pets
-        } else {
-            return petStore.pets.filter { pet in
+        var pets = petStore.pets
+        
+        // Apply search filter
+        if !searchText.isEmpty {
+            pets = pets.filter { pet in
                 pet.name.localizedCaseInsensitiveContains(searchText)
             }
         }
+        
+        // Apply type filter
+        if let filterType = filterType {
+            pets = pets.filter { $0.type == filterType }
+        }
+        
+        // Apply breed filter
+        if !filterBreed.isEmpty {
+            pets = pets.filter { $0.breed == filterBreed }
+        }
+        
+        // Apply level range filter
+        pets = pets.filter { pet in
+            Double(pet.level) >= levelRange.lowerBound && Double(pet.level) <= levelRange.upperBound
+        }
+        
+        // Apply sorting
+        switch sortBy {
+        case .name:
+            pets = pets.sorted { $0.name < $1.name }
+        case .level:
+            pets = pets.sorted { $0.level > $1.level }
+        case .breed:
+            pets = pets.sorted { $0.breed < $1.breed }
+        case .type:
+            pets = pets.sorted { $0.type.rawValue < $1.type.rawValue }
+        case .dateCollected, .lastUpdated:
+            // These would require additional date fields in GamePet
+            pets = pets.sorted { $0.name < $1.name }
+        }
+        
+        return pets
+    }
+    
+    var hasActiveFilters: Bool {
+        !searchText.isEmpty || filterType != nil || !filterBreed.isEmpty || levelRange != 1...99
+    }
+    
+    var activeFilterCount: Int {
+        var count = 0
+        if filterType != nil { count += 1 }
+        if !filterBreed.isEmpty { count += 1 }
+        if levelRange != 1...99 { count += 1 }
+        return count
     }
     
     var body: some View {
@@ -52,15 +102,15 @@ struct MyCollectionView: View {
                 HStack(spacing: 12) {
                     SearchBar(searchText: $searchText, placeholder: "Search")
                     
-                    FilterButton {
-                        // Filter action
+                    FilterButton(activeFilterCount: activeFilterCount) {
+                        showingFilters = true
                     }
                 }
                 
                 // All pets section
                 VStack(alignment: .leading, spacing: 12) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(searchText.isEmpty ? "All pets (\(filteredPets.count))" : "Results (\(filteredPets.count))")
+                        Text(hasActiveFilters ? "Results (\(filteredPets.count))" : "All pets (\(filteredPets.count))")
                             .font(.h5)
                             .foregroundColor(Color.text2)
                         
@@ -87,6 +137,21 @@ struct MyCollectionView: View {
             .padding(.horizontal, 20)
             .padding(.top, 20)
             .background(Color.white)
+            .sheet(isPresented: $showingFilters) {
+                FilterOptionsView(
+                    isPresented: $showingFilters,
+                    currentSortBy: sortBy,
+                    currentType: filterType,
+                    currentBreed: filterBreed,
+                    currentLevelRange: levelRange,
+                    onApplyFilters: { selectedSortBy, selectedType, selectedBreed, selectedLevelRange in
+                        sortBy = selectedSortBy
+                        filterType = selectedType
+                        filterBreed = selectedBreed
+                        levelRange = selectedLevelRange
+                    }
+                )
+            }
     }
 }
 
