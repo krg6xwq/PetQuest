@@ -17,6 +17,17 @@ struct SearchBar: View {
             TextField(placeholder, text: $searchText)
                 .font(.h5)
                 .foregroundColor(Color.text1)
+            
+            if !searchText.isEmpty {
+                Button(action: {
+                    searchText = ""
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(Color.text2)
+                        .font(.system(size: 16))
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
         }
         .frame(height: 48)
         .padding(.horizontal, 20)

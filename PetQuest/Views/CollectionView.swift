@@ -5,6 +5,16 @@ struct MyCollectionView: View {
     @StateObject private var petStore = PetStore()
     @StateObject private var navigationManager = NavigationManager()
     
+    var filteredPets: [GamePet] {
+        if searchText.isEmpty {
+            return petStore.pets
+        } else {
+            return petStore.pets.filter { pet in
+                pet.name.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 24) {
                 // Header
@@ -50,7 +60,7 @@ struct MyCollectionView: View {
                 // All pets section
                 VStack(alignment: .leading, spacing: 12) {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("All pets (\(petStore.pets.count))")
+                        Text(searchText.isEmpty ? "All pets (\(filteredPets.count))" : "Results (\(filteredPets.count))")
                             .font(.h5)
                             .foregroundColor(Color.text2)
                         
@@ -62,7 +72,7 @@ struct MyCollectionView: View {
                     // Pet Cards
                     ScrollView {
                         LazyVStack(spacing: 12) {
-                            ForEach(petStore.pets) { pet in
+                            ForEach(filteredPets) { pet in
                                 NavigationLink(destination: PetProfileView(pet: pet)) {
                                     AnimalPreviewCard(pet: pet)
                                 }
