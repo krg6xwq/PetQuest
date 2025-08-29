@@ -49,17 +49,7 @@ struct ViewUpdateView: View {
                         // Tags
                         HStack(spacing: 4) {
                             ForEach(update.tags, id: \.self) { tag in
-                                Text(tag)
-                                    .font(.body1)
-                                    .foregroundColor(Color.text2)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 4)
-                                    .background(Color.white)
-                                    .cornerRadius(20)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.borderPrimary, lineWidth: 1)
-                                    )
+                                UpdateTagLarge(text: tag)
                             }
                         }
                         

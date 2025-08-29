@@ -32,17 +32,7 @@ struct PetProfileUpdateCard: View {
                     // Tags
                     HStack(spacing: 4) {
                         ForEach(update.tags, id: \.self) { tag in
-                            Text(tag)
-                                .font(.caption)
-                                .foregroundColor(Color.text2)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 2)
-                                .background(Color.white)
-                                .cornerRadius(10)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.borderPrimary, lineWidth: 1)
-                                )
+                            UpdateTag(text: tag)
                         }
                         Spacer()
                     }
