@@ -114,7 +114,11 @@ struct PetProfileView: View {
                         NavigationLink(destination: ViewAllUpdatesView(pet: pet)) {
                             Text("See all")
                                 .font(.h4)
-                                .foregroundColor(Color.petType(pet.type.rawValue))
+                                .foregroundColor(
+                                    pet.type.rawValue == "air" || pet.type.rawValue == "lightning" 
+                                    ? Color.petTypeBadgeBackground(pet.type.rawValue)
+                                    : Color.petType(pet.type.rawValue)
+                                )
                         }
                     }
                     
@@ -147,10 +151,18 @@ struct PetProfileView: View {
                         Text("Add update")
                             .font(.h4)
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(
+                        pet.type.rawValue == "air" || pet.type.rawValue == "lightning" 
+                        ? Color.petType(pet.type.rawValue)
+                        : .white
+                    )
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
-                    .background(Color.petType(pet.type.rawValue))
+                    .background(
+                        pet.type.rawValue == "air" || pet.type.rawValue == "lightning" 
+                        ? Color.petTypeBadgeBackground(pet.type.rawValue) 
+                        : Color.petType(pet.type.rawValue)
+                    )
                     .cornerRadius(100)
                 }
                 .buttonStyle(PlainButtonStyle())

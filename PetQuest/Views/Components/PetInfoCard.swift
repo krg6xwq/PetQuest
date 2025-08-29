@@ -15,13 +15,21 @@ struct PetInfoCard: View {
                     Spacer()
                     
                     HStack(spacing: 4) {
-                        Image(systemName: "circle.fill")
+                        Image(systemName: Color.petTypeIcon(pet.type.rawValue))
                             .font(.system(size: 16))
-                            .foregroundColor(Color.petType(pet.type.rawValue))
+                            .foregroundColor(
+                                pet.type.rawValue == "air" || pet.type.rawValue == "lightning" 
+                                ? Color.petTypeBadgeBackground(pet.type.rawValue)
+                                : Color.petType(pet.type.rawValue)
+                            )
                         
                         Text(pet.type.rawValue.capitalized)
                             .font(.h5)
-                            .foregroundColor(Color.petType(pet.type.rawValue))
+                            .foregroundColor(
+                                pet.type.rawValue == "air" || pet.type.rawValue == "lightning" 
+                                ? Color.petTypeBadgeBackground(pet.type.rawValue)
+                                : Color.petType(pet.type.rawValue)
+                            )
                     }
                 }
                 
