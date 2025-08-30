@@ -4,6 +4,8 @@ import SwiftUI
 extension Font {
     // MARK: Font Definitions
     static let h1 = Font.custom("Fredoka-Bold", size: 32)
+    static let h2 = Font.custom("Fredoka-SemiBold", size: 24)
+    static let h3 = Font.custom("Fredoka-SemiBold", size: 20)
     static let h4 = Font.custom("Fredoka-Medium", size: 18)
     static let h5 = Font.custom("Fredoka-Medium", size: 16)
     static let h6 = Font.custom("Fredoka-Medium", size: 14)

@@ -55,14 +55,10 @@ struct EmptyStateView: View {
             if let actionTitle = actionTitle, let action = action {
                 Button(action: action) {
                     Text(actionTitle)
-                        .font(.custom("Fredoka-Medium", size: 16))
+                        .font(.h4)
                         .foregroundColor(Color.brandPrimary)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 100)
-                                .stroke(Color.brandPrimary, lineWidth: 2)
-                        )
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -100,7 +96,7 @@ extension EmptyStateView {
     // No filter results
     static func noFilterResults(onClearFilters: @escaping () -> Void) -> EmptyStateView {
         EmptyStateView(
-            icon: "slider.horizontal.3",
+            icon: "questionmark",
             title: "No matching pets",
             message: "No pets match your current filters. Try adjusting your search criteria.",
             actionTitle: "Clear Filters",
