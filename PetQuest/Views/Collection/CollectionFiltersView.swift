@@ -249,11 +249,19 @@ struct FilterOptionsView: View {
                     .foregroundColor(.primary)
                     
                     ForEach(GamePetType.allCases, id: \.self) { type in
-                        Button(type.rawValue.capitalized) {
+                        Button(action: {
                             selectedType = type
                             showingTypePicker = false
+                        }) {
+                            HStack(spacing: 8) {
+                                Text(type.rawValue.capitalized)
+                                    .foregroundColor(.primary)
+
+                                Image(systemName: Color.petTypeIcon(type.rawValue))
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color.petType(type.rawValue))
+                            }
                         }
-                        .foregroundColor(.primary)
                     }
                 }
                 .navigationTitle("Pet Type")
