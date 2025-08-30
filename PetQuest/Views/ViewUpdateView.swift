@@ -16,8 +16,7 @@ struct ViewUpdateView: View {
                 // Pet Name and Date
                 VStack(spacing: 4) {
                     Text("\(update.petName) (\(update.petBreed))")
-                        .font(.custom("Fredoka-SemiBold", size: 20))
-                        .foregroundColor(Color.text1)
+                        .textStyle(TextStyles.H3())
                     
                     Text(update.timestamp)
                         .font(.body1)

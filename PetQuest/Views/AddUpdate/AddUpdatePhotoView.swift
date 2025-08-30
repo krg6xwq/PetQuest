@@ -25,8 +25,7 @@ struct AddUpdatePhotoView: View {
                     
                     VStack(spacing: 8) {
                         Text("Add a photo")
-                            .font(.custom("Fredoka-SemiBold", size: 20))
-                            .foregroundColor(Color.text1)
+                            .textStyle(TextStyles.H3())
                         
                         Text("Take or upload a photo of your pet")
                             .font(.body1)

@@ -66,8 +66,7 @@ struct AddUpdateDetailsView: View {
                     
                     VStack(spacing: 8) {
                         Text("Add a description")
-                            .font(.custom("Fredoka-SemiBold", size: 20))
-                            .foregroundColor(Color.text1)
+                            .textStyle(TextStyles.H3())
                         
                         Text("Describe what your pet was doing in the photo")
                             .font(.body1)

@@ -73,8 +73,7 @@ struct ViewAllUpdatesView: View {
             VStack(spacing: 20) {
                 // Title
                 Text("Updates of \(pet.name) (\(petUpdates.count))")
-                    .font(.custom("Fredoka-SemiBold", size: 20))
-                    .foregroundColor(Color.text1)
+                    .textStyle(TextStyles.H3())
                 
                 // Updates List
                 ScrollView {

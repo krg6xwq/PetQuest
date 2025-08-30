@@ -45,7 +45,7 @@ struct PetProfileView: View {
                         Spacer()
                         
                         Text("Lvl \(pet.level)")
-                            .font(.custom("Fredoka-SemiBold", size: 24))
+                            .textStyle(TextStyles.H2())
                             .foregroundColor(Color.text2)
                     }
                     
@@ -103,7 +103,7 @@ struct PetProfileView: View {
                 VStack(spacing: 12) {
                     HStack {
                         Text("Updates")
-                            .font(.custom("Fredoka-SemiBold", size: 24))
+                            .textStyle(TextStyles.H2())
                             .foregroundColor(Color.text1)
                         
                         Spacer()

@@ -42,7 +42,7 @@ struct AddPetDetailsView: View {
                         
                         VStack(spacing: 8) {
                             Text("Fill in details")
-                                .font(.custom("Fredoka-SemiBold", size: 20))
+                                .textStyle(TextStyles.H3())
                                 .foregroundColor(Color.text1)
                             
                             Text("Select your pet's name, animal and breed")

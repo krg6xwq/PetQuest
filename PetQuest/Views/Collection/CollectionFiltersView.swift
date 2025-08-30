@@ -61,7 +61,7 @@ struct FilterOptionsView: View {
             // Header
             HStack {
                 Text("Filters")
-                    .font(.custom("Fredoka-SemiBold", size: 24))
+                    .textStyle(TextStyles.H2())
                     .foregroundColor(Color.text1)
                 
                 Spacer()

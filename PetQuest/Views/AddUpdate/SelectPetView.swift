@@ -29,8 +29,7 @@ struct SelectPetView: View {
             VStack(spacing: 32) {
                 // Title
                 Text("Select pet")
-                    .font(.custom("Fredoka-SemiBold", size: 20))
-                    .foregroundColor(Color.text1)
+                    .textStyle(TextStyles.H3())
                 
                 // Search and Filter Section
                 VStack(spacing: 24) {

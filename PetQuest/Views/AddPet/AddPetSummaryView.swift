@@ -21,7 +21,7 @@ struct AddPetSummaryView: View {
             VStack(spacing: 32) {
                 // Introducing text
                 Text("Introducing...")
-                    .font(.custom("Fredoka-SemiBold", size: 24))
+                    .textStyle(TextStyles.H2())
                     .foregroundColor(Color.text2)
                 
                 VStack(spacing: 20) {
@@ -33,7 +33,7 @@ struct AddPetSummaryView: View {
                         Spacer()
                         
                         Text("Lvl \(level)")
-                            .font(.custom("Fredoka-SemiBold", size: 24))
+                            .textStyle(TextStyles.H2())
                             .foregroundColor(Color.text2)
                     }
                     

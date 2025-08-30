@@ -38,7 +38,7 @@ struct EmptyStateView: View {
                 // Text Content
                 VStack(spacing: 8) {
                     Text(title)
-                        .font(.custom("Fredoka-SemiBold", size: 20))
+                        .textStyle(TextStyles.H3())
                         .foregroundColor(Color.text1)
                         .multilineTextAlignment(.center)
                     
