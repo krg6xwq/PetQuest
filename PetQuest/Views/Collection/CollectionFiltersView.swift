@@ -193,61 +193,11 @@ struct FilterOptionsView: View {
                             .foregroundColor(Color.text1)
                     }
                     
-                    // Custom Range Slider
-                    GeometryReader { geometry in
-                        ZStack(alignment: .leading) {
-                            // Track
-                            Rectangle()
-                                .fill(Color.grey400)
-                                .frame(height: 6)
-                                .cornerRadius(3)
-                            
-                            // Active track
-                            Rectangle()
-                                .fill(Color.brandPrimary)
-                                .frame(width: trackWidth(geometry.size.width), height: 6)
-                                .cornerRadius(3)
-                                .offset(x: trackOffset(geometry.size.width))
-                        }
-                        .overlay(
-                            HStack(spacing: 0) {
-                                // Lower bound thumb
-                                Circle()
-                                    .fill(Color.brandPrimary)
-                                    .frame(width: 24, height: 24)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 1)
-                                    .offset(x: thumbOffset(for: levelRange.lowerBound, width: geometry.size.width) - 12)
-                                
-                                Spacer()
-                                
-                                // Upper bound thumb
-                                Circle()
-                                    .fill(Color.brandPrimary)
-                                    .frame(width: 24, height: 24)
-                                    .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 1)
-                                    .offset(x: thumbOffset(for: levelRange.upperBound, width: geometry.size.width) - geometry.size.width + 12)
-                            }
-                        )
-                        .gesture(
-                            DragGesture()
-                                .onChanged { value in
-                                    let percent = value.location.x / geometry.size.width
-                                    let newValue = 1 + (99 - 1) * Double(percent)
-                                    let clampedValue = min(99, max(1, newValue))
-                                    
-                                    // Determine which thumb is being dragged
-                                    let distanceToLower = abs(thumbOffset(for: levelRange.lowerBound, width: geometry.size.width) - value.location.x)
-                                    let distanceToUpper = abs(thumbOffset(for: levelRange.upperBound, width: geometry.size.width) - value.location.x)
-                                    
-                                    if distanceToLower < distanceToUpper {
-                                        levelRange = min(clampedValue, levelRange.upperBound - 1)...levelRange.upperBound
-                                    } else {
-                                        levelRange = levelRange.lowerBound...max(clampedValue, levelRange.lowerBound + 1)
-                                    }
-                                }
-                        )
-                    }
-                    .frame(height: 24)
+                    RangeSlider(
+                        range: $levelRange,
+                        bounds: 1...99,
+                        step: 1
+                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -256,25 +206,20 @@ struct FilterOptionsView: View {
             Spacer()
             
             // Apply Button
-            Button(action: {
+            PrimaryButton(
+                title: "Apply",
+                isEnabled: hasChanges
+            ) {
                 onApplyFilters(selectedSortBy, selectedType, selectedBreed, levelRange)
                 isPresented = false
-            }) {
-                Text("Apply")
-                    .font(.custom("Fredoka-Medium", size: 18))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 48)
-                    .background(hasChanges ? Color.brandPrimary : Color.text2)
-                    .cornerRadius(100)
             }
-            .disabled(!hasChanges)
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
+            .padding(.bottom, 32)
         }
         .background(Color.white)
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .shadow(color: Color.black.opacity(0.25), radius: 5, x: 0, y: 0)
+        .ignoresSafeArea(.container, edges: .bottom)
         .sheet(isPresented: $showingSortPicker) {
             NavigationView {
                 List(SortOption.allCases, id: \.self) { option in
@@ -348,22 +293,6 @@ struct FilterOptionsView: View {
             }
             .presentationDetents([.medium])
         }
-    }
-    
-    // Helper functions for range slider
-    private func thumbOffset(for value: Double, width: CGFloat) -> CGFloat {
-        let percent = (value - 1) / (99 - 1)
-        return width * CGFloat(percent)
-    }
-    
-    private func trackOffset(_ width: CGFloat) -> CGFloat {
-        thumbOffset(for: levelRange.lowerBound, width: width)
-    }
-    
-    private func trackWidth(_ width: CGFloat) -> CGFloat {
-        let startOffset = thumbOffset(for: levelRange.lowerBound, width: width)
-        let endOffset = thumbOffset(for: levelRange.upperBound, width: width)
-        return endOffset - startOffset
     }
 }
 
