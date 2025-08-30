@@ -10,8 +10,8 @@ struct FilterButton: View {
     }
     
     var body: some View {
-        Button(action: action) {
-            ZStack {
+        ZStack {
+            Button(action: action) {
                 Image(systemName: "slider.horizontal.3")
                     .font(.system(size: 24))
                     .foregroundColor(Color.brandPrimary)
@@ -22,24 +22,22 @@ struct FilterButton: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(Color.borderPrimary, lineWidth: 1)
                     )
-                
-                if activeFilterCount > 0 {
-                    ZStack {
-                        Circle()
-                            .fill(Color.coralRed)
-                            .frame(width: 18, height: 18)
-                        
-                        Text("\(activeFilterCount)")
-                            .font(.system(size: 11, weight: .bold))
-                            .foregroundColor(.white)
-                    }
-                    .offset(x: 14, y: 14)
-                }
             }
-            .frame(width: 48, height: 48)
-            .clipped()
+            .buttonStyle(PlainButtonStyle())
+            
+            if activeFilterCount > 0 {
+                ZStack {
+                    Circle()
+                        .fill(Color.coralRed)
+                        .frame(width: 18, height: 18)
+                    
+                    Text("\(activeFilterCount)")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                .offset(x: 18, y: 18)
+            }
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 
