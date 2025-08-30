@@ -119,14 +119,43 @@ struct MyCollectionView: View {
                             .frame(height: 1)
                     }
                     
-                    // Pet Cards
-                    ScrollView {
-                        LazyVStack(spacing: 12) {
-                            ForEach(filteredPets) { pet in
-                                NavigationLink(destination: PetProfileView(pet: pet)) {
-                                    AnimalPreviewCard(pet: pet)
+                    // Pet Cards or Empty State
+                    if filteredPets.isEmpty {
+                        VStack {
+                            Spacer()
+                            
+                            if petStore.pets.isEmpty {
+                                // No pets at all
+                                EmptyStateView.noPets {
+                                    navigationManager.startAddPetFlow()
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                            } else if !searchText.isEmpty {
+                                // No search results
+                                EmptyStateView.noSearchResults(searchTerm: searchText) {
+                                    searchText = ""
+                                }
+                            } else {
+                                // No filter results
+                                EmptyStateView.noFilterResults {
+                                    // Clear all filters
+                                    filterType = nil
+                                    filterBreed = ""
+                                    levelRange = 1...99
+                                    sortBy = .level
+                                }
+                            }
+                            
+                            Spacer()
+                        }
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 12) {
+                                ForEach(filteredPets) { pet in
+                                    NavigationLink(destination: PetProfileView(pet: pet)) {
+                                        AnimalPreviewCard(pet: pet)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
                             }
                         }
                     }
